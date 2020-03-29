@@ -5,7 +5,32 @@ class Turnout
     private:
         bool thrown;
         int number;
-        
+        Switch switch;
+
+        void writePins()
+        {
+            digitalWrite(number + startPin, thrown);
+        }
+
+        void update()
+        {
+            writePins();
+            saveToEEPROM();
+        }
+
+        void checkSwitch()
+        {
+            if (switch.detectChange())
+            {
+                toggle();
+            }
+        };
+
+        void checkSerial()
+        {
+
+        };
+
     public:
         static int startPin;
 
@@ -22,26 +47,20 @@ class Turnout
             throw(state);
         }
 
-        void writePins()
-        {
-            digitalWrite(number + startPin, thrown);
-        }
-
-        void update()
-        {
-            writePins();
-            saveToEEPROM();
-        }
-
         void set(bool state)
-        { 
+        {
             thrown = state;
             update();
         };
 
         void toggle()
-        { 
+        {
             thrown = !thrown;
             update();
         };
+
+        void checkInputs()
+        {
+
+        }
 };
