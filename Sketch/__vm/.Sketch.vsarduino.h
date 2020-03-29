@@ -89,5 +89,7 @@ typedef void *__builtin_va_list;
 #define pgm_read_ptr(address_short)   short()
 
 #include "Sketch.ino"
+#include "Switch.ino"
+#include "Turnout.ino"
 #endif
 #endif

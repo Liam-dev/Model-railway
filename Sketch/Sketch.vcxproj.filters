@@ -16,6 +16,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sketch.ino" />
+    <None Include="src\arduino folders read me.txt">
+      <Filter>Misc Files</Filter>
+    </None>
+    <None Include="Switch.ino" />
+    <None Include="Turnout.ino" />
   </ItemGroup>
- 
+  <ItemGroup>
+    <ClInclude Include="__vm\.Sketch.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

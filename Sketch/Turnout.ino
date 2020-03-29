@@ -9,7 +9,7 @@ class Turnout
     public:
         static int startPin;
 
-        Turnout(bool state) { throw(state)};
+		Turnout(bool state) { set(state); };
 
         void saveToEEPROM()
         {
@@ -33,7 +33,7 @@ class Turnout
             saveToEEPROM();
         }
 
-        void throw(bool state)
+        void set(bool state)
         { 
             thrown = state;
             update();
