@@ -1,16 +1,19 @@
 class Switch
 {
     private:
+        int pin;
         bool powered;
 
     public:
-        static int startPin;
-        Switch(/* args */);
+        Switch()
+        {
+            pinMode(pin, INPUT);
+        };
 
         bool detectChange()
         {
             bool change = false;
-            bool reading = digitalRead(j + startPin);
+            bool reading = digitalRead(pin);
 
             if (reading != powered)
             {

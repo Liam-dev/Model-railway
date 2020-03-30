@@ -3,9 +3,10 @@
 class Turnout
 {
     private:
+        int pin;
         bool thrown;
         int number;
-        Switch switch;
+        Switch lever;
 
         void saveToEEPROM()
         {
@@ -15,12 +16,12 @@ class Turnout
         void readFromEEPROM()
         {
             bool state = EEPROM.read(number);
-            throw(state);
+            set(state);
         };
 
         void writePins()
         {
-            digitalWrite(number + startPin, thrown);
+            digitalWrite(pin, thrown);
         };
 
         void update()
@@ -31,7 +32,7 @@ class Turnout
 
         void checkSwitch()
         {
-            if (switch.detectChange())
+            if (lever.detectChange())
             {
                 toggle();
             }
@@ -43,9 +44,13 @@ class Turnout
         };
 
     public:
-        static int startPin;
 
-		Turnout(bool state) { set(state); };
+		Turnout()
+        {
+            pinMode(pin, OUTPUT);
+            bool state = readFromEEPROM();
+            set(state);
+        };
 
         void set(bool state)
         {
@@ -68,6 +73,6 @@ class Turnout
         void main()
         {
             checkInputs();
-            saveToEEPROM();            
+            saveToEEPROM();
         };
 };
