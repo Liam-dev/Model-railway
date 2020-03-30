@@ -45,11 +45,12 @@ class Turnout
 
     public:
 
-		Turnout()
+		Turnout(){};
+
+        void setup()
         {
-            pinMode(pin, OUTPUT);
-            bool state = readFromEEPROM();
-            set(state);
+          pinMode(pin, OUTPUT);
+            readFromEEPROM();
         };
 
         void set(bool state)

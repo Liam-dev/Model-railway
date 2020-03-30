@@ -5,10 +5,12 @@ class Switch
         bool powered;
 
     public:
-        Switch()
+        Switch(){};
+
+        void setup()
         {
             pinMode(pin, INPUT);
-        };
+        }
 
         bool detectChange()
         {
