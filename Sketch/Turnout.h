@@ -45,7 +45,12 @@ class Turnout
 
     public:
 
-		Turnout(){};
+		Turnout(int n, Switch s)
+        {
+            pin = n;
+            number = n;
+            lever = s;
+        };
 
         void setup()
         {
