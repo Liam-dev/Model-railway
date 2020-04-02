@@ -8,12 +8,12 @@ class Switch
         Switch(int n)
         {
             pin = n;
-        };
+        }
 
         void setup()
         {
             pinMode(pin, INPUT);
-        };
+        }
 
         bool detectChange()
         {
@@ -31,5 +31,5 @@ class Switch
 
             powered = reading;
             return change;
-        };
+        }
 };
