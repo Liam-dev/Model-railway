@@ -3,14 +3,14 @@
 Switch::Switch()
 {
     pin = 0;
-    powered = false;
+    powered = true;
     readDelay = 50;
 }
 
 Switch::Switch(int n)
 {
     pin = n;
-    powered = false;
+    powered = true;
     readDelay = 50;
 }
 
@@ -34,14 +34,24 @@ bool Switch::detectChange()
     bool change = false;
     bool reading = digitalRead(pin);
     change = (reading != powered);
-
+  /*
     if (change)
     {
-        delay(50);
+        delay(1000);
         Serial.print("Change detected on ");
         Serial.println(pin);
+        Serial.println(powered);
+        Serial.println(reading);
     }
+    */
 
+         delay(50);
+        //Serial.print("Switch ");
+        //Serial.println(pin);
+        Serial.println(powered);
+        Serial.println(reading);
+        Serial.println(change);
+    
     powered = reading;
 
     return change;
