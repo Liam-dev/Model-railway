@@ -3,41 +3,42 @@
  Created:	3/29/2020 2:18:03 PM
  Author:	Liam
 */
-#include "Switch.cpp";
-#include "Turnout.cpp";
+#include "Switch.h"
+#include "Turnout.h"
 
 const int switchCount = 4;
 const int turnoutCount = 4;
 const int turnoutStartPin = 10;
 const int switchStartPin = 2;
-/*
-Switch switches [switchCount] = {{0}, {1}, {2}, {3}};
-Turnout turnouts [turnoutCount] = {{0, switches[0]}, {1, switches[1]}, {2, switches[2]}, {3, switches[3]}};
-*/
+
+Switch switches[switchCount] = {{0 + switchStartPin}, {1 + switchStartPin}, {2 + switchStartPin}, {3 + switchStartPin}};
+Turnout turnouts[turnoutCount] = {{0 + turnoutStartPin, switches[0]}, {1 + turnoutStartPin, switches[1]}, {2 + turnoutStartPin, switches[2]}, {3 + turnoutStartPin, switches[3]}};
+
 
 // the setup function runs once when you press reset or power the board
 void setup()
 {
-    /*
-    for (Switch s : switches)
+    Serial.begin(9600);
+    Serial.println("Serial working!");
+
+    for (int i = 0; i < switchCount; i++)
     {
-        s.setup();
+        switches[i].setup();
     }
 
-    for (Turnout t : turnouts)
+    for (int i = 0; i < turnoutCount; i++)
     {
-        t.setup();
+        turnouts[i].setup();
     }
-    */
+
 }
 
 // loop function runs over and over again until power down or reset
 void loop()
 {
-    /*
-    for (Turnout t : turnouts)
+
+    for (int i = 0; i < turnoutCount; i++)
     {
-        t.main();
+        turnouts[i].main();
     }
-    */
 }

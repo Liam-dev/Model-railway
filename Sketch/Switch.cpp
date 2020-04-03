@@ -1,35 +1,40 @@
-class Switch
+#include "Switch.h"
+
+Switch::Switch()
 {
-    private:
-        int pin;
-        bool powered;
+    pin = 0;
+    powered = false;
+}
 
-    public:
-        Switch(int n)
-        {
-            pin = n;
-        }
+Switch::Switch(int n)
+{
+    pin = n;
+    powered = false;
+}
 
-        void setup()
-        {
-            pinMode(pin, INPUT);
-        }
+void Switch::setup()
+{
+    pinMode(pin, INPUT);
+    powered = digitalRead(pin);
+    Serial.print("Switch ");
+    Serial.print(pin);
+    Serial.println(" setup!");
+    Serial.println(powered);
+}
 
-        bool detectChange()
-        {
-            bool change = false;
-            bool reading = digitalRead(pin);
+bool Switch::detectChange()
+{
+    bool change = false;
+    bool reading = digitalRead(pin);
+    change = (reading != powered);
 
-            if (reading != powered)
-            {
-                change = true;
-            }
-            else
-            {
-                change = false;
-            }
+    if (change)
+    {
+        Serial.print("Change detected on ");
+        Serial.println(pin);
+    }
 
-            powered = reading;
-            return change;
-        }
-};
+    powered = reading;
+    delay(50);
+    return change;
+}
