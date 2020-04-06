@@ -37,28 +37,29 @@ void Turnout::update()
 
 void Turnout::checkSwitch()
 {
-    Serial.println(lever->isPowered());
     if (lever->detectChange())
     {
-        Serial.print("Turnout ");
-        Serial.print(number);
-        Serial.println(" toggled!");
         toggle();
     }
 }
 
 void Turnout::checkSerial()
 {
-    {}
+    /*
+    if (Serial.available() > 0)
+    {
+        if (Serial.read() == number)
+        {
+            toggle();
+        }
+    }
+    */
 }
 
 void Turnout::setup()
 {
     pinMode(pin, OUTPUT);
     readFromEEPROM();
-    Serial.print("Turnout ");
-    Serial.print(number);
-    Serial.println(" setup!");
 }
 
 void Turnout::set(bool state)
@@ -71,11 +72,13 @@ void Turnout::toggle()
 {
     thrown = !thrown;
     update();
+    Serial.print("Turnout ");
+    Serial.print(number);
+    Serial.println(" toggled");
 }
 
 void Turnout::checkInputs()
 {
-    Serial.println(lever->isPowered());
     checkSwitch();
     checkSerial();
 }

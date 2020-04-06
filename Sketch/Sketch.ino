@@ -19,8 +19,6 @@ Turnout turnouts[turnoutCount] = {{0 + turnoutStartPin, &switches[0]}, {1 + turn
 void setup()
 {
     Serial.begin(9600);
-    Serial.println("Serial working!");
-
     for (int i = 0; i < turnoutCount; i++)
     {
         turnouts[i].setup();
@@ -29,13 +27,18 @@ void setup()
     for (int i = 0; i < switchCount; i++)
     {
         switches[i].setup();
-        Serial.println(switches[i].isPowered());
     }
 }
 
 // loop function runs over and over again until power down or reset
 void loop()
 {
+    if (Serial.available() > 0)
+    {
+        int i = atoi(Serial.readString().c_str());
+        turnouts[i].toggle();
+    }
+
     for (int i = 0; i < turnoutCount; i++)
     {
         turnouts[i].checkInputs();
