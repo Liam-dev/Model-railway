@@ -4,10 +4,9 @@ Turnout::Turnout()
 {
     pin = 0;
     number = 0;
-    lever = Switch();
 }
 
-Turnout::Turnout(int n, Switch s)
+Turnout::Turnout(int n, Switch* s)
 {
     pin = n;
     number = n;
@@ -38,8 +37,8 @@ void Turnout::update()
 
 void Turnout::checkSwitch()
 {
-    Serial.println(lever.isPowered());
-    if (lever.detectChange())
+    Serial.println(lever->isPowered());
+    if (lever->detectChange())
     {
         Serial.print("Turnout ");
         Serial.print(number);
@@ -76,7 +75,7 @@ void Turnout::toggle()
 
 void Turnout::checkInputs()
 {
-    Serial.println(lever.isPowered());
+    Serial.println(lever->isPowered());
     checkSwitch();
     checkSerial();
 }

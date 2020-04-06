@@ -12,7 +12,7 @@ const int turnoutStartPin = 10;
 const int switchStartPin = 2;
 
 Switch switches[switchCount] = {{0 + switchStartPin}, {1 + switchStartPin}, {2 + switchStartPin}, {3 + switchStartPin}};
-Turnout turnouts[turnoutCount] = {{0 + turnoutStartPin, switches[0]}, {1 + turnoutStartPin, switches[1]}, {2 + turnoutStartPin, switches[2]}, {3 + turnoutStartPin, switches[3]}};
+Turnout turnouts[turnoutCount] = {{0 + turnoutStartPin, &switches[0]}, {1 + turnoutStartPin, &switches[1]}, {2 + turnoutStartPin, &switches[2]}, {3 + turnoutStartPin, &switches[3]}};
 
 
 // the setup function runs once when you press reset or power the board

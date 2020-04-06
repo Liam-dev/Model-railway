@@ -11,7 +11,7 @@ class Turnout
         int pin;
         bool thrown;
         int number;
-        Switch lever;
+        Switch* lever;
 
         void saveToEEPROM();
         void readFromEEPROM();
@@ -26,7 +26,7 @@ class Turnout
 
     public:
         Turnout();
-        Turnout(int n, Switch s);
+        Turnout(int n, Switch* s);
 
         void setup();
 

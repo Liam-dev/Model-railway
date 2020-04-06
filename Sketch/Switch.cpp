@@ -10,7 +10,7 @@ Switch::Switch()
 Switch::Switch(int n)
 {
     pin = n;
-    powered = false;
+    powered = true;
     readDelay = 50;
 }
 
@@ -40,7 +40,7 @@ bool Switch::detectChange()
     //Serial.println(powered);
     Serial.println(reading);
     Serial.println(change);
-    
+
     powered = reading;
 
     return change;
