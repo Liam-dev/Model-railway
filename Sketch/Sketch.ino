@@ -21,24 +21,23 @@ void setup()
     Serial.begin(9600);
     Serial.println("Serial working!");
 
-    for (int i = 0; i < switchCount; i++)
-    {
-        switches[i].setup();
-    }
-
     for (int i = 0; i < turnoutCount; i++)
     {
         turnouts[i].setup();
     }
 
+    for (int i = 0; i < switchCount; i++)
+    {
+        switches[i].setup();
+        Serial.println(switches[i].isPowered());
+    }
 }
 
 // loop function runs over and over again until power down or reset
 void loop()
 {
-
     for (int i = 0; i < turnoutCount; i++)
     {
-        turnouts[i].main();
+        turnouts[i].checkInputs();
     }
 }

@@ -1,5 +1,19 @@
 #include "Turnout.h"
 
+Turnout::Turnout()
+{
+    pin = 0;
+    number = 0;
+    lever = Switch();
+}
+
+Turnout::Turnout(int n, Switch s)
+{
+    pin = n;
+    number = n;
+    lever = s;
+}
+
 void Turnout::saveToEEPROM()
 {
     EEPROM.write(number, thrown);
@@ -24,6 +38,7 @@ void Turnout::update()
 
 void Turnout::checkSwitch()
 {
+    Serial.println(lever.isPowered());
     if (lever.detectChange())
     {
         Serial.print("Turnout ");
@@ -36,21 +51,6 @@ void Turnout::checkSwitch()
 void Turnout::checkSerial()
 {
     {}
-}
-
-
-Turnout::Turnout()
-{
-    pin = 0;
-    number = 0;
-    lever = Switch();
-}
-
-Turnout::Turnout(int n, Switch s)
-{
-    pin = n;
-    number = n;
-    lever = s;
 }
 
 void Turnout::setup()
@@ -76,12 +76,7 @@ void Turnout::toggle()
 
 void Turnout::checkInputs()
 {
+    Serial.println(lever.isPowered());
     checkSwitch();
     checkSerial();
-}
-
-void Turnout::main()
-{
-    checkInputs();
-    saveToEEPROM();
 }
