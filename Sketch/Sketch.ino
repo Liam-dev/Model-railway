@@ -3,17 +3,17 @@
  Created:	3/29/2020 2:18:03 PM
  Author:	Liam
 */
-#include "Switch.h"
-#include "Turnout.h"
+#include "HardwareSerial.h"
+#include "lever.h"
+#include "turnout.h"
 
-const int switchCount = 4;
+const int leverCount = 4;
 const int turnoutCount = 4;
 const int turnoutStartPin = 10;
-const int switchStartPin = 2;
+const int leverStartPin = 2;
 
-Switch switches[switchCount] = {{0 + switchStartPin}, {1 + switchStartPin}, {2 + switchStartPin}, {3 + switchStartPin}};
-Turnout turnouts[turnoutCount] = {{0 + turnoutStartPin, &switches[0]}, {1 + turnoutStartPin, &switches[1]}, {2 + turnoutStartPin, &switches[2]}, {3 + turnoutStartPin, &switches[3]}};
-
+lever levers[leverCount] = {{0 + leverStartPin}, {1 + leverStartPin}, {2 + leverStartPin}, {3 + leverStartPin}};
+turnout turnouts[turnoutCount] = {{0 + turnoutStartPin, &levers[0], 6}, {1 + turnoutStartPin, &levers[1], 0}, {2 + turnoutStartPin, &levers[2], 0}, {3 + turnoutStartPin, &levers[3], 0}};
 
 // the setup function runs once when you press reset or power the board
 void setup()
@@ -24,9 +24,9 @@ void setup()
         turnouts[i].setup();
     }
 
-    for (int i = 0; i < switchCount; i++)
+    for (int i = 0; i < leverCount; i++)
     {
-        switches[i].setup();
+        levers[i].setup();
     }
 }
 

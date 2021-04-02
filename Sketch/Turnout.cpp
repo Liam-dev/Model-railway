@@ -1,49 +1,62 @@
-#include "Turnout.h"
+#include <Servo.h>
+#include "turnout.h"
 
-Turnout::Turnout()
+turnout::turnout()
 {
-    pin = 0;
-    number = 0;
+    id_ = 0;
+    LEDPin_ = 0;
 }
 
-Turnout::Turnout(int n, Switch* s)
+turnout::turnout(int id, lever* l, int servo)
 {
-    pin = n;
-    number = n;
-    lever = s;
+    id_ = id;
+    LEDPin_ = id;
+    plever_ = l;
+
+    servoPin_ = servo;
 }
 
-void Turnout::saveToEEPROM()
+void turnout::saveToEEPROM()
 {
-    EEPROM.write(number, thrown);
+    EEPROM.write(id_, bThrown_);
 }
 
-void Turnout::readFromEEPROM()
+void turnout::readFromEEPROM()
 {
-    bool state = EEPROM.read(number);
+    bool state = EEPROM.read(id_);
     set(state);
 }
 
-void Turnout::writePins()
+void turnout::writePins()
 {
-    digitalWrite(pin, thrown);
+    digitalWrite(LEDPin_, bThrown_);
+
+    // Servo
+    if (bThrown_)
+    {
+        servo_.write(90);
+    }
+    else
+    {
+        servo_.write(0);
+    }
 }
 
-void Turnout::update()
+void turnout::update()
 {
     writePins();
     saveToEEPROM();
 }
 
-void Turnout::checkSwitch()
+void turnout::checkLever()
 {
-    if (lever->detectChange())
+    if (plever_->detectChange())
     {
         toggle();
     }
 }
 
-void Turnout::checkSerial()
+void turnout::checkSerial()
 {
     /*
     if (Serial.available() > 0)
@@ -56,29 +69,30 @@ void Turnout::checkSerial()
     */
 }
 
-void Turnout::setup()
+void turnout::setup()
 {
-    pinMode(pin, OUTPUT);
+    pinMode(LEDPin_, OUTPUT);
+    servo_.attach(servoPin_);
     readFromEEPROM();
 }
 
-void Turnout::set(bool state)
+void turnout::set(bool state)
 {
-    thrown = state;
+    bThrown_ = state;
     update();
 }
 
-void Turnout::toggle()
+void turnout::toggle()
 {
-    thrown = !thrown;
+    bThrown_ = !bThrown_;
     update();
-    Serial.print("Turnout ");
-    Serial.print(number);
+    Serial.print("turnout ");
+    Serial.print(id_);
     Serial.println(" toggled");
 }
 
-void Turnout::checkInputs()
+void turnout::checkInputs()
 {
-    checkSwitch();
+    checkLever();
     checkSerial();
 }

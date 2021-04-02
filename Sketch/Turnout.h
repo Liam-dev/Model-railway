@@ -1,17 +1,20 @@
-#ifndef Turnout_h
-#define Turnout_h
+#ifndef turnout_h
+#define turnout_h
 
 #include <Arduino.h>
 #include <EEPROM.h>
-#include "Switch.h"
+#include <Servo.h>
+#include "lever.h"
 
-class Turnout
+class turnout
 {
     private:
-        int pin;
-        bool thrown;
-        int number;
-        Switch* lever;
+        int id_;
+        int LEDPin_;
+        int servoPin_;
+        bool bThrown_;
+        lever* plever_;
+        Servo servo_;
 
         void saveToEEPROM();
         void readFromEEPROM();
@@ -20,13 +23,13 @@ class Turnout
 
         void update();
 
-        void checkSwitch();
+        void checkLever();
         void checkSerial();
 
 
     public:
-        Turnout();
-        Turnout(int n, Switch* s);
+        turnout();
+        turnout(int id, lever* l, int servo);
 
         void setup();
 
