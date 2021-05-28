@@ -3,7 +3,8 @@
 
 #include <Arduino.h>
 #include <EEPROM.h>
-#include <Servo.h>
+//#include <Servo.h>
+#include <VarSpeedServo.h>
 #include "lever.h"
 
 class turnout
@@ -13,8 +14,8 @@ class turnout
         int LEDPin_;
         int servoPin_;
         bool bThrown_;
-        lever* plever_;
-        Servo servo_;
+        lever plever_;
+        VarSpeedServo servo_;
 
         void saveToEEPROM();
         void readFromEEPROM();
@@ -29,7 +30,7 @@ class turnout
 
     public:
         turnout();
-        turnout(int id, lever* l, int servo);
+        turnout(int id, lever& l, int servo, int led);
 
         void setup();
 
@@ -38,6 +39,6 @@ class turnout
 
         void checkInputs();
 
-        void main();
+        bool getState();
 };
 #endif

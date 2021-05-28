@@ -1,4 +1,5 @@
-#include <Servo.h>
+//#include <Servo.h>
+#include <VarSpeedServo.h>
 #include "turnout.h"
 
 turnout::turnout()
@@ -7,12 +8,11 @@ turnout::turnout()
     LEDPin_ = 0;
 }
 
-turnout::turnout(int id, lever* l, int servo)
+turnout::turnout(int id, lever& l, int servo, int led)
 {
     id_ = id;
-    LEDPin_ = id;
+    LEDPin_ = led;
     plever_ = l;
-
     servoPin_ = servo;
 }
 
@@ -34,11 +34,11 @@ void turnout::writePins()
     // Servo
     if (bThrown_)
     {
-        servo_.write(90);
+        servo_.write(90, 20);
     }
     else
     {
-        servo_.write(0);
+        servo_.write(0, 20);
     }
 }
 
@@ -50,7 +50,7 @@ void turnout::update()
 
 void turnout::checkLever()
 {
-    if (plever_->detectChange())
+    if (plever_.detectChange())
     {
         toggle();
     }
@@ -67,6 +67,7 @@ void turnout::checkSerial()
         }
     }
     */
+    
 }
 
 void turnout::setup()
@@ -94,5 +95,9 @@ void turnout::toggle()
 void turnout::checkInputs()
 {
     checkLever();
-    checkSerial();
+}
+
+bool turnout::getState()
+{
+  return bThrown_;
 }
